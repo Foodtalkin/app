@@ -1,0 +1,64 @@
+<h4 class="semi-bold">{{item.title}}</h4>
+<!-- <div class="row">
+	<div class="col-sm-12">
+		<div class="thumbnail-wrapper" ng-repeat="image in item.content" style="margin: 5px;height: 80px; width: 80px;">
+			<img  ng-src="{{image}}" alt="">
+		</div>
+		
+	</div>
+
+</div> -->
+<div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20" ng-controller="detailsCtrl" ng-init="init()" style="padding: 0">
+    <!-- START CATEGORY -->
+    <div class="gallery" ui-jq="isotope" ui-options="{
+            itemSelector: '.gallery-item',
+            masonry: {
+                columnWidth: 80,
+                gutter: 10,
+                isFitWidth: true
+            }
+        }">
+        
+        <!-- START GALLERY ITEM -->
+  
+        <div class="gallery-item thumbnail-wrapper my-gallery" data-width="1" data-height="1" ng-repeat="image in item.content" ng-click="showItemDetails()" style="float: left; width: 80px; height: 80px;">
+            <!-- START PREVIEW -->
+            <img ng-src="{{image}}" alt="">
+            <!-- END PREVIEW -->
+        </div>
+		
+		<div class="my-gallery2 m-r-10 m-b-10" ng-repeat="image in item.content" ng-click="showItemDetails()" style="position: relative !important;height: 80px; width: 80px;float: left; display: inline-block;">
+        <!-- START PREVIEW -->
+            <img ng-src="{{image}}" alt="" style="width: 100%; height: 100%;">
+            <!-- END PREVIEW -->
+        </div>
+	        
+        <!-- END GALLERY ITEM -->
+    </div>
+    <!-- END CATEGORY -->
+</div>
+<!-- END CONTAINER FLUID -->
+<!-- START DIALOG -->
+<div id="itemDetails" class="dialog item-details">
+    <div class="dialog__overlay"></div>
+    <div class="dialog__content">
+        <div class="container-fluid" style="height: 100vh;">
+            <div class="row dialog__overview">
+                <div class="col-sm-12 no-padding item-slideshow-wrapper full-height">
+                    <div class="item-slideshow full-height" ui-jq="owlCarousel" ui-options="{
+					        items: 1,
+					        nav: true,
+					        navText: ['<i class=\'fa fa-chevron-left\'></i>', '<i class=\'fa fa-chevron-right\'></i>'],
+					        dots: true
+					    }">
+                        <div class="slide" ng-repeat="img in item.content">
+                        	<img ng-src="{{img}}" alt="" class="slide-my-img">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="close action top-right text-white" data-dialog-close><i class="pg-close fs-14"></i>
+        </button>
+    </div>
+</div>

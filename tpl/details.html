@@ -1,0 +1,246 @@
+<div class="container container-fixed-lg">
+	<div class="row p-t-30">
+        <div class="col-md-4 col-md-push-8">
+            <div class="fixcard">
+                <div class="card share share-other" style="z-index: 700;">
+                    <div class="card-content">
+                        
+                        <span class="pull-right event-Tag">{{event.tag}}</span>
+                        <img alt="Person photo" ng-src="{{event.cover_image}}" style="width: 100%">
+                    </div>
+                    <div class="card-description">
+                        <h4 class="semi-bold m-b-10">{{event.title}}</h4>
+                    </div>
+                    <div class="card-footer clearfix" style="cursor: default;">
+                        <p>
+                            <i class="pg-clock m-r-10"></i> <span>{{event.time}}</span>
+                        </p>
+                        <p>
+                            <i class="pg-map m-r-10"></i> <span>{{event.address}}</span>
+                        </p>
+                        <p>
+                            <i class="pg-credit_card m-r-10"></i> <span>{{event.cost}}/person</span>
+                        </p>
+                        <p>
+                            <i class="fa fa-users m-r-10"></i> <span>{{event.avilable_seats}} Seats left</span>
+                        </p>
+                    </div>
+                    <div class="button-area clearfix">
+                        <button class="full-btn btn {{event.avilable_seats == '0' ? 'btn-danger' : 'btn-success'}}" data-target="#modalSlideLeft2" data-toggle="modal" ng-click="modalSlideLeft" ng-disabled="soldout">{{event.avilable_seats == '0' ? 'Sold Out' : event.action_text}}</button>
+                    </div>
+                </div>
+                <p class="hint-text">By purchasing, you accept our <a href="http://foodtalk.in/legal.html" class="" target="_blank">Terms &amp; conditions</a></p>
+                <div class="col-sm-6 m-t-15 text-center hidden-xs">
+                    <a href="https://itunes.apple.com/in/app/food-talk-privilege/id1246265932?utm_source=Website-Priviladge&utm_medium=iOS-Button&utm_campaign=App-Download" target="_blank">
+                        <img src="assets/img/apple.png" alt="" style="width: 100%">
+                    </a>
+                </div>
+                <div class="col-sm-6 m-t-15 text-center hidden-xs">
+                    <a href="https://play.google.com/store/apps/details?id=in.foodtalk.privilege&hl=en&utm_source=Website-Priviladge&utm_medium=Android-Button&utm_campaign=App-Download" target="_blank">
+                        <img src="assets/img/google.png" alt="" style="width: 100%">
+                    </a>
+                </div>
+            </div>
+                
+            
+        </div>
+		<div class="col-md-8 col-md-pull-4">
+            <div class="col-sm-12 event-name-mobile">
+                <h2 class="bold">{{event.title}}</h2>
+            </div>
+			<div class="col-sm-12 no-padding m-t-10 b-t b-grey" ng-repeat="item in event.data">
+              	<experience-data class="col-sm-12" type="{{item.type}}" item="item"></experience-data>
+            </div>
+            <div class="col-sm-12 visible-xs m-b-10 m-t-10 p-t-10 b-t b-grey">
+        
+                <button class="full-btn btn {{event.avilable_seats == '0' ? 'btn-danger' : 'btn-success'}}" data-target="#modalSlideLeft2" data-toggle="modal" ng-click="modalSlideLeft" ng-disabled="soldout">{{event.avilable_seats == '0' ? 'Sold Out' : event.action_text}}</button>
+            </div>
+		</div>
+		
+	</div>
+</div>
+
+
+<div class="modal fade slide-right" id="modalSlideLeft2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content-wrapper">
+            <div class="modal-content table-block">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="resetallForm()"><i class="pg-close fs-14"></i></button>
+                <div class="modal-body mid">
+                    <div class="m-t-30" ng-show="step1">
+                        <h3 class="bold" style="letter-spacing: -.34px;">Welcome</h3>
+                        <h5 class="m-b-30">Please enter your phone number to get started.</h5>
+                        <form name="login" id="form-login" role="form" novalidate>
+                            <div class="row text-left">
+                                <div class="col-sm-12">
+                                    <div pg-form-group class="form-group form-group-default" ng-class="{ 'has-error' : login.phone.$invalid && !login.phone.$pristine }">
+                                        <label>Phone Number</label>
+                                        <input type="tel" class="form-control" minlength="10" maxlength="10" name="phone" placeholder="9876543210" ng-model="user.phone" required>
+                                    </div>
+                                    <label class="error" for="phone" ng-show="login.phone.$invalid && !login.phone.$pristine">This field is required.</label>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                             <button type="button" class="btn btn-primary btn-block" ng-disabled="login.$invalid" ng-click="checkPhone()">Continue</button>
+                        </form>
+                    </div>
+                    <div class="m-t-30" ng-show="step2">
+                        <h3 class="bold" style="letter-spacing: -.34px;">Create account</h3>
+                        <h5 class="m-b-30">We need your email &amp; name to create an account for you.</h5>
+                        <form name="signup" id="form-signup" role="form" novalidate>
+                            <div class="row text-left">
+                                <div class="col-sm-12">
+                                    <div pg-form-group class="form-group form-group-default" ng-class="{ 'has-error' : signup.username.$invalid && !signup.username.$pristine }">
+                                        <label>Name</label>
+                                        <input type="text" class="form-control" name="username" placeholder="Name" ng-model="user.username" required>
+                                    </div>
+                                    <label class="error" for="username" ng-show="signup.username.$invalid && !signup.username.$pristine">This field is required.</label>
+                                </div>
+                            </div>
+                            <div class="row text-left">
+                                <div class="col-sm-12">
+                                    <div pg-form-group class="form-group form-group-default" ng-class="{ 'has-error' : signup.phone.$invalid && !signup.phone.$pristine }">
+                                        <label>phone</label>
+                                        <input type="tel" class="form-control" name="phone" minlength="10" maxlength="10" placeholder="9876543210" ng-model="user.phone" required>
+                                    </div>
+                                    <label class="error" for="phone" ng-show="signup.phone.$invalid && !signup.phone.$pristine">This field is required.</label>
+                                    <label class="error" for="phone" ng-show="signup.phone.$error.minlength">phone should have at least 4 characters</label>
+                                </div>
+                            </div>
+                            <div class="row text-left">
+                                <div class="col-sm-12">
+                                    <div pg-form-group class="form-group form-group-default" ng-class="{ 'has-error' : signup.email.$invalid && !signup.email.$pristine }">
+                                        <label>Email</label>
+                                        <input type="email" class="form-control" name="email" ng-model="user.email" required>
+                                    </div>
+                                    <label class="error" for="email" ng-show="signup.email.$invalid && !signup.email.$pristine">Enter a valid email.</label>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <button type="button" class="btn btn-primary btn-block" ng-disabled="signup.$invalid" ng-click="dosignup()">Continue</button>
+                        </form>
+                        
+                        <button type="button" class="btn btn-default btn-block m-t-10" ng-click="step2back()">back</button>
+                    </div>
+                    <div class="m-t-30" ng-show="step3">
+                        <h3 class="bold" style="letter-spacing: -.34px;">Welcome</h3>
+                        <h5 class="m-b-30">Please enter OTP sent to {{user.phone}} to continue</h5>
+                        <form name="otpValid" id="form-otpValid" role="form" novalidate>
+                            <div class="row text-left">
+                                <div class="col-sm-12">
+                                    <div pg-form-group class="form-group form-group-default" ng-class="{ 'has-error' : otpValid.otp.$invalid && !otpValid.otp.$pristine }">
+                                        <label>OTP</label>
+                                        <input type="password" class="form-control" name="otp" placeholder="otp" ng-model="user.otp" minlength="4" maxlength="4" required>
+                                    </div>
+                                    <label class="error" for="otp" ng-show="otpValid.otp.$invalid && !otpValid.otp.$pristine">This field is required.</label>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <button type="button" class="btn btn-primary btn-block" ng-disabled="otpValid.$invalid" ng-click="dologin()">Login</button>
+                        </form>
+                        
+                        <button type="button" class="btn btn-default btn-block m-t-10" ng-click="step2back()">back</button>
+                        <br>
+                        <div class="text-center">
+                            <p class="link" ng-click="getOtp()">Resend OTP</p>
+                        </div>
+                    </div> 
+                    <div class="m-t-30" ng-show="step4">
+                        <h3 class="bold" style="letter-spacing: -.34px;">{{event.title}}</h3>
+                        <h6 class="semi-bold">{{event.time}}</h6>
+                        <h6 class="semi-bold m-b-30">{{event.address}}</h6>
+                        <h5 class="">How many tickets would you like to purchase?</h5>
+                        <form name="ticketsCount" id="form-ticketsCount" role="form" novalidate>
+                            <div class="row text-left">
+                                <div class="col-sm-12">
+                                    <div pg-form-group class="form-group form-group-default" ng-class="{ 'has-error' : ticketsCount.seats.$invalid && !ticketsCount.seats.$pristine }">
+                                        <label>seats</label>
+                                        <select class="form-control" ng-model="user.seats" ng-change="changeCount()" required>
+                                            <option value="{{item}}" ng-repeat="item in available_s">{{item}}</option>
+                                        </select>
+                                    </div>
+                                    <label class="error" for="seats" ng-show="ticketsCount.seats.$invalid && !ticketsCount.seats.$pristine">This field is required.</label>
+                                </div>
+                            </div>
+                            <div class="row text-left" ng-show="asknv">
+                                <div class="col-sm-12">
+                                    <div pg-form-group class="form-group form-group-default" ng-class="{ 'has-error' : ticketsCount.nonveg.$invalid && !ticketsCount.nonveg.$pristine }">
+                                        <label>Nonveg</label>
+                                        <select class="form-control" ng-model="user.nonveg">
+                                            <option value="{{item}}" ng-repeat="item in seatcount">{{item}}</option>
+                                        </select>
+                                    </div>
+                                    <label class="error" for="nonveg" ng-show="ticketsCount.nonveg.$invalid && !ticketsCount.nonveg.$pristine">This field is required.</label>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <button type="button" class="btn btn-primary btn-block" ng-disabled="ticketsCount.$invalid" ng-click="sendTicketsCount()">Next</button>
+                        </form>
+                        
+                    </div>
+                    <div class="m-t-30" ng-show="step5">
+                        <h3 class="bold" style="letter-spacing: -.34px;">{{event.title}}</h3>
+                        <h6 class="semi-bold">{{event.time}}</h6>
+                        <h6 class="semi-bold m-b-20">{{event.address}}</h6>
+                        <div class="row text-left">
+                            <div class="col-xs-12">
+                                <h4>Event Passes</h4>
+                                <p class="hint-text"><span>VEG : {{user.seats - user.nonveg}}</span> | <span>NON-VEG : {{user.nonveg}}</span></p>
+                            </div>
+                            <div class="col-xs-12 b-b b-grey">
+                                <div class="col-xs-8 no-padding p-t-5 p-b-5">
+                                    <p class="hint-text">SUBTOTAL: {{estimate.tickets}} X {{estimate.cost_for_one}}</p>
+                                </div>
+                                <div class="col-xs-4 no-padding text-right p-t-5 p-b-5">
+                                    <i class="fa fa-inr"></i> {{estimate.cost}}
+                                </div>
+                            </div>
+                            <div class="col-xs-12 b-b b-grey">
+                                <div class="col-xs-8 no-padding p-t-10 p-b-5">
+                                    CONVINIECE FEE
+                                </div>
+                                <div class="col-xs-4 no-padding text-right p-t-10 p-b-5">
+                                    <i class="fa fa-inr"></i> {{estimate.convenience_fee}}
+                                </div>
+                                <div class="col-xs-8 no-padding p-t-5 p-b-10">
+                                    TAXES
+                                </div>
+                                <div class="col-xs-4 no-padding text-right p-t-5 p-b-10">
+                                    <i class="fa fa-inr"></i> {{estimate.taxes}}
+                                </div>
+                                
+                            </div>
+                            <div class="col-xs-12">
+                                <div class="col-xs-8 no-padding p-t-10 p-b-10">
+                                    <p class="bold">TOTAL AMOUNT</p>
+                                </div>
+                                <div class="col-xs-4 no-padding text-right p-t-10 p-b-10">
+                                    <p class="bold"><i class="fa fa-inr"></i> {{estimate.amount}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <button type="button" class="btn btn-primary btn-block" ng-click="getOrder()">PAY</button> -->
+                        <div>
+                            <form method="POST" action="https://pguat.paytm.com/oltp-web/processTransaction">
+                                <input style="display: none;" type="text" name="CALLBACK_URL" value="{{paymentInfo.CALLBACK_URL}}">
+                                <input style="display: none;" type="text" name="CHANNEL_ID" value="{{paymentInfo.CHANNEL_ID}}">
+                                <input style="display: none;" type="text" name="CHECKSUMHASH" value="{{paymentInfo.CHECKSUMHASH}}">
+                                <input style="display: none;" type="text" name="CUST_ID" value="{{paymentInfo.CUST_ID}}">
+                                <input style="display: none;" type="text" name="INDUSTRY_TYPE_ID" value="{{paymentInfo.INDUSTRY_TYPE_ID}}">
+                                <input style="display: none;" type="text" name="MID" value="{{paymentInfo.MID}}">
+                                <input style="display: none;" type="text" name="ORDER_ID" value="{{paymentInfo.ORDER_ID}}">
+                                <input style="display: none;" type="text" name="TXN_AMOUNT" value="{{paymentInfo.TXN_AMOUNT}}">
+                                <input style="display: none;" type="text" name="WEBSITE" value="{{paymentInfo.WEBSITE}}">
+                                <input style="display: none;" type="text" name="source" value="web">
+                                <button type="submit" class="btn btn-primary btn-block" value="Submit" class="go-to-paytm">Pay with Paytm</button>
+                            </form>
+                        </div>
+                        <button type="button" class="btn btn-default btn-block m-t-10" ng-click="gotostep4()">Back</button>
+                    </div>             
+                </div>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+<!-- /.modal-dialog -->
+</div>

@@ -1,0 +1,62 @@
+    <div class="header bg-master-darker text-white" ng-class="{'transparent': is('app.maps.vector') || is('app.maps.google') }" style="border-bottom: 0;">
+        <!-- START MOBILE CONTROLS -->
+        <!-- LEFT SIDE -->
+        <div class="pull-left full-height visible-sm visible-xs">
+            <!-- START ACTION BAR -->
+            <!-- <div class="sm-action-bar">
+                <a href="" class="btn-link toggle-sidebar" data-toggle="sidebar">
+                    <span class="icon-set menu-hambuger"></span>
+                </a>
+            </div> -->
+        </div>
+        <!-- RIGHT SIDE -->
+        <div class="pull-right full-height visible-sm visible-xs">
+            
+        </div>
+        <!-- END MOBILE CONTROLS -->
+        <div class=" pull-left sm-table ">
+            <div class="header-inner p-r-20 p-l-20">
+                <div class="brand inline">
+                    <a ui-sref="app.dashboard">
+                        <span style="color: #fff; font-size: 22px;font-weight: bold;">FOODTALK</span>
+                    </a>
+                    
+                    <!-- <img src="assets/img/logo.png" alt="logo" data-src="assets/img/logo.png" ui-jq="unveil" data-src-retina="assets/img/logo_2x.png" width="78" height="22"> -->
+                </div>          
+            </div>
+        </div>
+        <div class=" pull-right loginlink">
+            <!-- START User Info-->
+            <div class="m-t-10" ng-show="userLoggedIn">
+                <div class="pull-left p-t-10">
+                    <span class="semi-bold"><i class="fa fa-user"></i></span>
+                </div>
+                <div class="dropdown pull-right">
+                    <button class="profile-dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="thumbnail-wrapper d24 circular inline m-t-10">
+                            <i class="fa fa-angle-down" aria-hidden="true"></i>
+                        </span>
+
+                    </button>
+                    <ul class="dropdown-menu profile-dropdown" role="menu">
+                        <li><a href=""><i class="fa fa-user"></i>{{myUser}}</a>
+                        </li>
+                        <li><a href=""><i class="pg-signals"></i> Help</a>
+                        </li>
+                        <li class="bg-master-lighter">
+                            <a ng-click="dologut()" class="clearfix">
+                                <span class="pull-left">Logout</span>
+                                <span class="pull-right"><i class="pg-power"></i></span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- END User Info-->
+        </div>
+    </div>
+
+
+
+
