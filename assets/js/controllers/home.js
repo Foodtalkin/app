@@ -12,7 +12,7 @@ angular.module('app')
         $rootScope.app.pageurl = $location.absUrl();
 
 
-    	$scope.mainUrl = "http://stg-api.foodtalk.in/experiences";
+    	$scope.mainUrl = "http://api.foodtalk.in/experiences";
     	HomeFact.getList($scope.mainUrl,function(response){
     		$scope.eventList = response.data.result.data;
     		console.log(response);

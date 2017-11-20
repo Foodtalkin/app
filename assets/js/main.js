@@ -76,7 +76,7 @@ angular.module('app').factory('mainFact', ['$http', function($http){
     mainFact.checkPhone = function(phone, callback){
         $http({
             method: 'GET',
-            url: "http://stg-api.foodtalk.in/checkuser/" + phone
+            url: "http://api.foodtalk.in/checkuser/" + phone
         }).then(function(response) {
             callback(response);
         });
@@ -85,7 +85,7 @@ angular.module('app').factory('mainFact', ['$http', function($http){
     mainFact.logout = function(session, callback){
         $http({
             method: 'DELETE',
-            url: "http://stg-api.foodtalk.in/userlogout?sessionid=" + session
+            url: "http://api.foodtalk.in/userlogout?sessionid=" + session
         }).then(function(response) {
             callback(response);
         });
@@ -94,7 +94,7 @@ angular.module('app').factory('mainFact', ['$http', function($http){
     mainFact.getOtp = function(phone, callback){
         $http({
             method: 'POST',
-            url: "http://stg-api.foodtalk.in/getotp",
+            url: "http://api.foodtalk.in/getotp",
             data: {
                 phone : phone
             }
@@ -106,7 +106,7 @@ angular.module('app').factory('mainFact', ['$http', function($http){
     mainFact.signup = function(name, email, phone, callback){
         $http({
             method: 'POST',
-            url: "http://stg-api.foodtalk.in/getotp",
+            url: "http://api.foodtalk.in/getotp",
             data: {
                 name : name,
                 phone : phone,
@@ -121,7 +121,7 @@ angular.module('app').factory('mainFact', ['$http', function($http){
     mainFact.login = function(phone, otp, callback){
         $http({
             method: 'POST',
-            url: "http://stg-api.foodtalk.in/userlogin",
+            url: "http://api.foodtalk.in/userlogin",
             data: {
                 phone : phone,
                 otp : otp
@@ -133,7 +133,7 @@ angular.module('app').factory('mainFact', ['$http', function($http){
     mainFact.checksess = function(sessionId, callback){
         $http({
             method: 'GET',
-            url: "http://stg-api.foodtalk.in/profile?sessionid="+sessionId
+            url: "http://api.foodtalk.in/profile?sessionid="+sessionId
         }).then(function(response) {
             callback(response);
         });

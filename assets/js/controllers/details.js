@@ -270,13 +270,13 @@ angular.module('app')
                         "total_tickets" : $scope.user.seats,
                         "non_veg" : $scope.user.nonveg,
                         "source":"web",
-                        "callback_url":"http://localhost/experience/#/payment/status"
+                        "callback_url":"http://app.foodtalk.in/#/payment/status"
                     }
                 }else{
                     var data = {
                         "total_tickets" : $scope.user.seats,
                         "source":"web",
-                        "callback_url":"http://localhost/experience/#/payment/status"
+                        "callback_url":"http://app.foodtalk.in/#/payment/status"
                     }
                 }
                 
@@ -317,7 +317,7 @@ angular.module('app')
     	detailsFact.getDetails = function(id, callback){
     		$http({
 				method: 'GET',
-				url: "http://stg-api.foodtalk.in/experiences/"+id
+				url: "http://api.foodtalk.in/experiences/"+id
 			}).then(function(response) {
 	            callback(response);
 	        });
@@ -326,7 +326,7 @@ angular.module('app')
         detailsFact.getEstimate = function(id, data, session_id,callback){
             $http({
                 method: 'POST',
-                url: "http://stg-api.foodtalk.in/experiences/"+id+"/order/estimate?sessionid="+session_id,
+                url: "http://api.foodtalk.in/experiences/"+id+"/order/estimate?sessionid="+session_id,
                 data : data
             }).then(function(response) {
                 callback(response);
@@ -336,7 +336,7 @@ angular.module('app')
         detailsFact.getOrder = function(id, data, session_id,callback){
             $http({
                 method: 'POST',
-                url: "http://stg-api.foodtalk.in/experiences/"+id+"/order?sessionid="+session_id,
+                url: "http://api.foodtalk.in/experiences/"+id+"/order?sessionid="+session_id,
                 data : data
             }).then(function(response) {
                 callback(response);

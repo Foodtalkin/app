@@ -27,7 +27,7 @@ angular.module('app')
 	statusFact.orderStatus = function(orderId, sessionId, callback){
 		$http({
 			method: 'GET',
-			url: "http://stg-api.foodtalk.in/experiences/orderstatus/"+orderId+"?sessionid="+sessionId
+			url: "http://api.foodtalk.in/experiences/orderstatus/"+orderId+"?sessionid="+sessionId
 		}).then(function(response) {
             callback(response);
         });
