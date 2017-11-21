@@ -11,6 +11,7 @@ angular.module('app', [
     'ui.utils',
     'oc.lazyLoad',
     'zen.video-embed',
-    'ngCookies'
+    'ngCookies',
+    'ps-facebook-pixel'
 ]);
  

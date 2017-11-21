@@ -1,9 +1,8 @@
 'use strict';
 
 angular.module('app')
-.controller('statusCtrl', ['$scope','$cookies','statusFact', '$interval',
- function($scope, $cookies,statusFact,$interval){
-
+.controller('statusCtrl', ['$scope','$cookies','statusFact', '$interval','$pixel',
+ function($scope, $cookies,statusFact,$interval,$pixel){
 	if($cookies["session"] != "" || $cookies["order_id"] != ""){
 		statusFact.orderStatus($cookies["order_id"], $cookies["session"], function(response){
 			console.log(response);
@@ -15,6 +14,11 @@ angular.module('app')
 				$scope.mainhead = "Booking Successful";
 				$scope.mymsg = "We have sent your tickets on sms and email.";
 				$interval.cancel($scope.mypromis);
+				$pixel.track('Purchase', {
+	              content_category : 'experiences',
+	              value: 0,
+	              currency: 'TWD'
+	            })
 			}else if(response.data.result.payment_status == "TXN_FAILURE"){
 				$scope.call_fail = true;
 				$scope.call_success = false;
@@ -44,6 +48,11 @@ angular.module('app')
 				$scope.mainhead = "Booking Successful";
 				$scope.mymsg = "We have sent your tickets on sms and email.";
 				$interval.cancel($scope.mypromis);
+				$pixel.track('Purchase', {
+	              content_category : 'experiences',
+	              value: 0,
+	              currency: 'TWD'
+	            })
 			}else if(response.data.result.payment_status == "TXN_FAILURE"){
 				$scope.call_fail = true;
 				$scope.call_success = false;

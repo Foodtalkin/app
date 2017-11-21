@@ -3,15 +3,62 @@
 /* Controllers */
 
 angular.module('app')
-    .controller('detailsCtrl', ['$scope','detailsFact','$state','$stateParams','$sce','mainFact','$cookies','$rootScope','$location',
-     function($scope,detailsFact,$state,$stateParams,$sce,mainFact,$cookies,$rootScope,$location) {
+    .controller('detailsCtrl', ['$scope','detailsFact','$state','$stateParams','$sce','mainFact','$cookies','$rootScope','$location','$pixel',
+     function($scope,detailsFact,$state,$stateParams,$sce,mainFact,$cookies,$rootScope,$location,$pixel) {
 
     	detailsFact.getDetails($stateParams.id,function(response){
     		$scope.event = response.data.result;
     		console.log($scope.event);
 
                     // change date formate start
-    				var start = $scope.event.start_time.split(" ");
+    				changeDateFormate();
+                    // end
+
+                $scope.available_s = [];
+                if(parseInt($scope.event.avilable_seats) < 10){
+                    for (var i=1; i<= parseInt($scope.event.avilable_seats); i++) {
+                      $scope.available_s.push(i);
+                    }
+                }else{
+                    for (var i=1; i<= 10; i++) {
+                      $scope.available_s.push(i);
+                    }
+                }
+
+                if($scope.event.avilable_seats == 0){
+                    $scope.soldout = true;
+                }
+
+                if($scope.event.nonveg_preference == '1'){
+                    $scope.asknv = true;
+                }else{
+                    $scope.asknv = false;
+                }
+
+            // meta tags for social media data
+
+            angular.forEach($scope.event.data, function(value, key){
+                if(value.type == "Text"){
+                    $rootScope.app.description = value.content;
+                    return false;
+                }
+            });
+
+            $rootScope.app.name = $scope.event.title;
+            $rootScope.app.image = $scope.event.cover_image;
+            $rootScope.app.pageurl = $location.absUrl();
+            // end
+
+
+            $pixel.track('ViewContent', {
+              content_name: $scope.event.title,
+              content_category : 'experiences'
+            })
+    	});
+
+        
+        function changeDateFormate(){
+            var start = $scope.event.start_time.split(" ");
                     
                     var H = +start[1].substr(0, 2);
                     var h = H % 12 || 12;
@@ -86,45 +133,7 @@ angular.module('app')
 
                     }
 
-                    // end
-
-                    $scope.available_s = [];
-                    if(parseInt($scope.event.avilable_seats) < 10){
-                        for (var i=1; i<= parseInt($scope.event.avilable_seats); i++) {
-                          $scope.available_s.push(i);
-                        }
-                    }else{
-                        for (var i=1; i<= 10; i++) {
-                          $scope.available_s.push(i);
-                        }
-                    }
-
-                    if($scope.event.avilable_seats == 0){
-                        $scope.soldout = true;
-                    }
-
-                    if($scope.event.nonveg_preference == '1'){
-                        $scope.asknv = true;
-                    }else{
-                        $scope.asknv = false;
-                    }
-
-        // meta tags for social media data
-
-        angular.forEach($scope.event.data, function(value, key){
-            if(value.type == "Text"){
-                $rootScope.app.description = value.content;
-                return false;
-            }
-        });
-
-        $rootScope.app.name = $scope.event.title;
-        $rootScope.app.image = $scope.event.cover_image;
-        $rootScope.app.pageurl = $location.absUrl();
-        // end
-
-    	});
-
+        }
         $scope.changeCount = function(){
             $scope.seatcount = [];
             for (var i=0; i<= parseInt($scope.user.seats); i++) {
@@ -148,24 +157,6 @@ angular.module('app')
             $scope.step5 = false;
         }
 
-        // gallary code
-        $scope.init = function() {
-            $('.item-slideshow > div').each(function() {
-                var img = $(this).data('image');
-                $(this).css({
-                    'background-image': 'url(' + img + ')',
-                    'background-size': 'cover'
-                })
-            });
-        }
-        $scope.showItemDetails = function() {
-            var dlg = new DialogFx($('#itemDetails').get(0));
-            dlg.toggle();
-        }
-        $scope.showFilters = function() {
-            $('#filters').toggleClass('open');
-        }
-        // end
 
         $scope.modalSlideLeft = function() {
             setTimeout(function() {
@@ -173,19 +164,20 @@ angular.module('app')
             }, 300);
         };
 
+
         $scope.user = {};
         if($cookies['username'] && $cookies['username'] != ""){
-                $scope.step4 = true;
-                $scope.step1 = false;
-                $scope.step2 = false;
-                $scope.step3 = false;
-            }else{
-                $scope.step1 = true;
-                $scope.step4 = false;
-                $scope.step2 = false;
-                $scope.step3 = false;
-                console.log("No user");
-            }
+            $scope.step4 = true;
+            $scope.step1 = false;
+            $scope.step2 = false;
+            $scope.step3 = false;
+        }else{
+            $scope.step1 = true;
+            $scope.step4 = false;
+            $scope.step2 = false;
+            $scope.step3 = false;
+            console.log("No user");
+        }
         
         $scope.checkPhone = function(){
             $rootScope.phone = $scope.user.phone;
@@ -220,6 +212,7 @@ angular.module('app')
                     $scope.step1 = false;
                     $scope.step2 = false;
                     $scope.step3 = true;
+                    $pixel.track('CompleteRegistration');
                 }
             })
         }
@@ -276,7 +269,7 @@ angular.module('app')
                     var data = {
                         "total_tickets" : $scope.user.seats,
                         "source":"web",
-                        "callback_url":"http://app.foodtalk.in/#/payment/status"
+                        "callback_url": "http://app.foodtalk.in/#/payment/status"
                     }
                 }
                 
@@ -349,3 +342,23 @@ angular.module('app')
     }]);
 
 
+angular.module('app').controller('galleryCtrl', ['$scope', function($scope){
+    // gallary code
+        $scope.init = function() {
+            $('.item-slideshow > div').each(function() {
+                var img = $(this).data('image');
+                $(this).css({
+                    'background-image': 'url(' + img + ')',
+                    'background-size': 'cover'
+                })
+            });
+        }
+        $scope.showItemDetails = function() {
+            var dlg = new DialogFx($('#itemDetails').get(0));
+            dlg.toggle();
+        }
+        $scope.showFilters = function() {
+            $('#filters').toggleClass('open');
+        }
+        // end
+}])

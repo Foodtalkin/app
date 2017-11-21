@@ -239,3 +239,14 @@ angular.module('app').factory('urlFact', function(){
         urlFact.experiences = baseurl+ "experiences";
         return urlFact;
 })
+
+
+angular.module('app').config(function($pixelProvider) {
+  $pixelProvider.id = '257926351368339'; // required, pixel id
+  $pixelProvider.disablePushState = false; // optional, default is false
+  $pixelProvider.delayPageView = false; // optional, default is false
+})
+
+angular.module('app').run(function($pixel) {
+  $pixel.pageView();
+})
