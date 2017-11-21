@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" data-ng-app="app" ng-controller="AppCtrl" itemscope itemtype="http://schema.org/Article">
+<html lang="en" data-ng-app="app" ng-controller="AppCtrl" itemscope itemtype="http://schema.org/Article" ng-cloak>
 
 <head>
     <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
     <meta charset="utf-8" />
-    <title>{{app.name}}</title>
+    <title ng-bind="app.name">Food Talk Privilege</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <link rel="apple-touch-icon" href="pages/ico/60.png">
     <link rel="apple-touch-icon" sizes="76x76" href="pages/ico/76.png">
@@ -37,7 +37,11 @@
     <meta property="og:image" content="{{app.image}}" />
     <meta property="og:description" content="{{app.description}}" />
     <meta property="og:site_name" content="Food Talk Privilege" />
-
+    <style>
+    [ng\: cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x- ng-cloak {
+      display: none !important;
+    }
+  </style>
 
     <!-- BEGIN Vendor CSS-->
     <link href="assets/plugins/pace/pace-theme-flash.css" rel="stylesheet" type="text/css" />
