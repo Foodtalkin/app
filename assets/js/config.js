@@ -22,7 +22,12 @@ angular.module('app')
             $httpProvider.defaults.headers.get['Cache-Control'] = 'no-cache';
             $httpProvider.defaults.headers.get['Pragma'] = 'no-cache';
 
-
+            $httpProvider.defaults.headers.common = {};
+            $httpProvider.defaults.headers.post = {};
+            $httpProvider.defaults.headers.put = {};
+            $httpProvider.defaults.headers.patch = {};
+            $httpProvider.defaults.headers.get = {};
+            delete $httpProvider.defaults.headers.common["X-Requested-With"];
 
             $urlRouterProvider
                 .otherwise('/app/home');
