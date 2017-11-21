@@ -221,7 +221,7 @@
                         </div>
                         <!-- <button type="button" class="btn btn-primary btn-block" ng-click="getOrder()">PAY</button> -->
                         <div>
-                            <form method="POST" action="https://pguat.paytm.com/oltp-web/processTransaction">
+                            <form method="POST" action="https://secure.paytm.in/oltp-web/processTransaction">
                                 <input style="display: none;" type="text" name="CALLBACK_URL" value="{{paymentInfo.CALLBACK_URL}}">
                                 <input style="display: none;" type="text" name="CHANNEL_ID" value="{{paymentInfo.CHANNEL_ID}}">
                                 <input style="display: none;" type="text" name="CHECKSUMHASH" value="{{paymentInfo.CHECKSUMHASH}}">
