@@ -311,13 +311,13 @@ angular.module('app')
             $rootScope.userLoggedIn = true;
         }
     }])
-    .factory('detailsFact', ['$http','$location', function($http,$location){
+    .factory('detailsFact', ['$http','$location','urlFact', function($http,$location,urlFact){
     	var detailsFact = {};
 
     	detailsFact.getDetails = function(id, callback){
     		$http({
 				method: 'GET',
-				url: "http://api.foodtalk.in/experiences/"+id
+				url: urlFact.experiences+"/"+id
 			}).then(function(response) {
 	            callback(response);
 	        });
@@ -326,7 +326,7 @@ angular.module('app')
         detailsFact.getEstimate = function(id, data, session_id,callback){
             $http({
                 method: 'POST',
-                url: "http://api.foodtalk.in/experiences/"+id+"/order/estimate?sessionid="+session_id,
+                url: urlFact.experiences+"/"+id+"/order/estimate?sessionid="+session_id,
                 data : data
             }).then(function(response) {
                 callback(response);
@@ -336,7 +336,7 @@ angular.module('app')
         detailsFact.getOrder = function(id, data, session_id,callback){
             $http({
                 method: 'POST',
-                url: "http://api.foodtalk.in/experiences/"+id+"/order?sessionid="+session_id,
+                url: urlFact.experiences+"/"+id+"/order?sessionid="+session_id,
                 data : data
             }).then(function(response) {
                 callback(response);

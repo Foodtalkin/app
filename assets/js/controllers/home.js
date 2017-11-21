@@ -3,8 +3,8 @@
 /* Controllers */
 
 angular.module('app')
-    .controller('HomeCtrl', ['$scope','HomeFact','$state','$rootScope','$location',
-     function($scope,HomeFact,$state,$rootScope,$location) {
+    .controller('HomeCtrl', ['$scope','HomeFact','$state','$rootScope','$location','urlFact',
+     function($scope,HomeFact,$state,$rootScope,$location,urlFact) {
 
         $rootScope.app.name = "Food Talk Privilege";
         $rootScope.app.description = "Loremipsum";
@@ -12,7 +12,7 @@ angular.module('app')
         $rootScope.app.pageurl = $location.absUrl();
 
 
-    	$scope.mainUrl = "http://api.foodtalk.in/experiences";
+    	$scope.mainUrl = urlFact.experiences;
     	HomeFact.getList($scope.mainUrl,function(response){
     		$scope.eventList = response.data.result.data;
     		console.log(response);

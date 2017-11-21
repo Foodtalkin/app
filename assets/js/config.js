@@ -221,3 +221,21 @@ angular.module('app')
             //template: '<div ng-include="contentUrl"></div>'
         };
     });
+
+
+angular.module('app').factory('urlFact', function(){
+    var urlFact = {}
+        var stg = "http://stg-api.foodtalk.in/";
+        var live = "http://api.foodtalk.in/";
+
+        // change before pushing online
+        var baseurl = live;
+        urlFact.orderstatus = baseurl+ "experiences/orderstatus/";
+        urlFact.checkuser = baseurl+ "checkuser/";
+        urlFact.userLogout = baseurl+ "userlogout?sessionid=";
+        urlFact.getOtp = baseurl+ "getotp";
+        urlFact.userlogin = baseurl + "userlogin";
+        urlFact.userprofile = baseurl + "profile?sessionid=";
+        urlFact.experiences = baseurl+ "experiences";
+        return urlFact;
+})
