@@ -4,9 +4,9 @@
  * ============================================================ */
 
 angular.module('app')
-    .config(['$stateProvider', '$urlRouterProvider', '$ocLazyLoadProvider','$httpProvider',
+    .config(['$stateProvider', '$urlRouterProvider', '$ocLazyLoadProvider','$httpProvider','$locationProvider',
 
-        function($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, $httpProvider) {
+        function($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, $httpProvider, $locationProvider) {
 
             // remove chaching in browser
             if (!$httpProvider.defaults.headers.get) {
@@ -111,7 +111,9 @@ angular.module('app')
                                 });
                         }]
                     }
-                })
+                });
+
+                $locationProvider.html5Mode(true);
         }
     ]);
 
