@@ -26,7 +26,8 @@
                         </p>
                     </div>
                     <div class="button-area clearfix">
-                        <button class="full-btn btn {{event.avilable_seats == '0' ? 'btn-danger' : 'btn-success'}}" data-target="#modalSlideLeft2" data-toggle="modal" ng-click="modalSlideLeft" ng-disabled="soldout">{{event.avilable_seats == '0' ? 'Sold Out' : event.action_text}}</button>
+                        <button class="full-btn btn {{event.is_disabled == '1' ? 'btn-danger' : (event.is_active == '0' ? 'btn-danger' : (event.avilable_seats == '0' ? 'btn-danger' : 'btn-success'))}}" data-target="#modalSlideLeft2" data-toggle="modal" ng-click="modalSlideLeft" ng-disabled="soldout">{{event.is_disabled == '1' ? 'Closed' : (event.is_active == '0' ? 'Closed' : (event.avilable_seats == '0' ? 'Sold Out' : event.action_text))}}</button>
+                        
                     </div>
                 </div>
                 <p class="hint-text">By purchasing, you accept our <a href="http://foodtalk.in/legal.html" class="" target="_blank">Terms &amp; conditions</a></p>

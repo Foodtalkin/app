@@ -8,7 +8,7 @@ angular.module('app')
 
     	detailsFact.getDetails($stateParams.id,function(response){
     		$scope.event = response.data.result;
-    		console.log($scope.event);
+    		// console.log($scope.event);
 
                     // change date formate start
     				changeDateFormate();
@@ -25,9 +25,18 @@ angular.module('app')
                     }
                 }
 
-                if($scope.event.avilable_seats == 0){
+                if($scope.event.is_disabled == '1'){
                     $scope.soldout = true;
+                }else{
+                    if($scope.event.is_active == '0'){
+                        $scope.soldout = true;
+                    }else{
+                        if($scope.event.avilable_seats == '0'){
+                            $scope.soldout = true;
+                        }
+                    }
                 }
+                
 
                 if($scope.event.nonveg_preference == '1'){
                     $scope.asknv = true;
@@ -176,13 +185,13 @@ angular.module('app')
             $scope.step4 = false;
             $scope.step2 = false;
             $scope.step3 = false;
-            console.log("No user");
+            // console.log("No user");
         }
         
         $scope.checkPhone = function(){
             $rootScope.phone = $scope.user.phone;
             mainFact.checkPhone($scope.user.phone, function(response){
-                console.log(response);
+                // console.log(response);
                 if(response.data.code == "200"){
                     // number exist
                     $scope.step1 = false;
@@ -193,26 +202,42 @@ angular.module('app')
                     $scope.step1 = false;
                     $scope.step2 = true;
                 }else{
-                    // error msg
+                    var message ="Oops! somthing went wrong. Please refresh the page and try again"
+                        $('body').pgNotification({
+                            style: 'bar',
+                            message: message,
+                            position: top,
+                            timeout: 5000,
+                            type: 'error'
+                        }).show();
                 }
             })
         }
 
         $scope.getOtp = function(){
             mainFact.getOtp($scope.user.phone, function(response){
-                console.log(response);
+                // console.log(response);
             })
         }
 
         $scope.dosignup = function(){
-            console.log($scope.user);
+            // console.log($scope.user);
             mainFact.signup($scope.user.username, $scope.user.email, $scope.user.phone, function(response){
-                console.log(response);
+                // console.log(response);
                 if(response.data.code == "200"){
                     $scope.step1 = false;
                     $scope.step2 = false;
                     $scope.step3 = true;
                     $pixel.track('CompleteRegistration');
+                }else{
+                    var message ="Oops! somthing went wrong. Please refresh the page and try again"
+                        $('body').pgNotification({
+                            style: 'bar',
+                            message: message,
+                            position: top,
+                            timeout: 5000,
+                            type: 'error'
+                        }).show();
                 }
             })
         }
@@ -220,7 +245,7 @@ angular.module('app')
         $scope.dologin = function(){
             //console.log($scope.user.phone +"-"+ $scope.user.otp)
             mainFact.login($scope.user.phone, $scope.user.otp, function(response){
-                console.log(response);
+                // console.log(response);
                 if(response.data.code == "200"){
                     $cookies['session'] = response.data.result.session.session_id;
                     $cookies['username'] = response.data.result.name;
@@ -229,12 +254,22 @@ angular.module('app')
                     $scope.step3 = false;
                     $scope.step4 = true;
                     $scope.getUser();
+                }else{
+                    $scope.user.otp = "";
+                    var message ="Invalid OTP, Please enter the 4 digit one time password sent on your registered number."
+                        $('body').pgNotification({
+                            style: 'bar',
+                            message: message,
+                            position: top,
+                            timeout: 5000,
+                            type: 'error'
+                        }).show();
                 }
             })
         }
 
         $scope.sendTicketsCount = function(){
-            console.log($scope.user);
+            // console.log($scope.user);
                 if($scope.event.nonveg_preference == '1'){
                     var data = {
                         "total_tickets" : $scope.user.seats,
@@ -247,11 +282,19 @@ angular.module('app')
                 }
                 
             detailsFact.getEstimate($stateParams.id, data, $cookies["session"], function(response){
-                console.log(response);
+                // console.log(response);
                 if(response.data.code == "200"){
-
                     $scope.estimate = response.data.result;
                     $scope.getOrder();
+                }else{
+                    var message ="Oops! somthing went wrong. Please refresh the page and try again"
+                        $('body').pgNotification({
+                            style: 'bar',
+                            message: message,
+                            position: top,
+                            timeout: 5000,
+                            type: 'error'
+                        }).show();
                 }
             })
         }
@@ -274,10 +317,10 @@ angular.module('app')
                 }
                 
             detailsFact.getOrder($stateParams.id, data, $cookies["session"], function(response){
-                console.log(response);
+                // console.log(response);
                 $scope.paymentInfo = response.data.result;
                 $cookies["order_id"] = $scope.paymentInfo.ORDER_ID;
-                console.log($cookies["order_id"]);
+                // console.log($cookies["order_id"]);
                 $scope.step4 = false;
                 $scope.step5 = true;
             })

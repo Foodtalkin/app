@@ -15,7 +15,7 @@ angular.module('app')
     	$scope.mainUrl = urlFact.experiences;
     	HomeFact.getList($scope.mainUrl,function(response){
     		$scope.eventList = response.data.result.data;
-    		console.log(response);
+    		// console.log(response);
     		$scope.next_Page = response.data.result.next_page_url;
     		if(response.data.result.current_page == response.data.result.last_page){
     			$scope.showLoadMore = false;
@@ -29,7 +29,7 @@ angular.module('app')
 
         $scope.nextPage = function(url){
             HomeFact.getList(url,function(response){
-                console.log(response.data.result);
+                // console.log(response.data.result);
                 $scope.eventList = $scope.eventList.concat(response.data.result.data);
                 $scope.next_Page = response.data.result.next_page_url;
             })
