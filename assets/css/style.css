@@ -98,6 +98,16 @@
 	display: none !important;
 } 
 
+
+.content-layer{
+	position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+/*.social-wrapper .social .jumbotron{
+	height: 40vh !important;
+}*/
+
 .long-Text{
 	overflow: hidden;
     text-overflow: ellipsis;
