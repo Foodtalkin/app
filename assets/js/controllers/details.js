@@ -254,16 +254,17 @@ angular.module('app')
                     $scope.step3 = false;
                     $scope.step4 = true;
                     $scope.getUser();
+                    $scope.wrongOtpEnter = false;
                 }else{
-                    
-                    var message ="Invalid OTP, Please enter the 4 digit one time password sent on your registered number."
-                        $('body').pgNotification({
-                            style: 'bar',
-                            message: message,
-                            position: top,
-                            timeout: 5000,
-                            type: 'error'
-                        }).show();
+                    $scope.wrongOtpEnter = true;
+                    // var message ="Invalid OTP, Please enter the 4 digit one time password sent on your registered number."
+                    //     $('body').pgNotification({
+                    //         style: 'bar',
+                    //         message: message,
+                    //         position: top,
+                    //         timeout: 5000,
+                    //         type: 'error'
+                    //     }).show();
                     $scope.user.otp = "";
                 }
             })
