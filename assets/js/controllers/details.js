@@ -245,7 +245,7 @@ angular.module('app')
         $scope.dologin = function(){
             //console.log($scope.user.phone +"-"+ $scope.user.otp)
             mainFact.login($scope.user.phone, $scope.user.otp, function(response){
-                // console.log(response);
+                 console.log(response);
                 if(response.data.code == "200"){
                     $cookies['session'] = response.data.result.session.session_id;
                     $cookies['username'] = response.data.result.name;
