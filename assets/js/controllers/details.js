@@ -255,7 +255,7 @@ angular.module('app')
                     $scope.step4 = true;
                     $scope.getUser();
                 }else{
-                    $scope.user.otp = "";
+                    
                     var message ="Invalid OTP, Please enter the 4 digit one time password sent on your registered number."
                         $('body').pgNotification({
                             style: 'bar',
@@ -264,6 +264,7 @@ angular.module('app')
                             timeout: 5000,
                             type: 'error'
                         }).show();
+                    $scope.user.otp = "";
                 }
             })
         }
