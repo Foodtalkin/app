@@ -46,7 +46,7 @@
   </div>
  <div class="row">
      <div class="col-sm-12 p-t-30">
-         <div class="col-lg-3 col-md-3 col-sm-4 m-b-20" ng-repeat="item in eventList">
+         <div class="col-lg-3 col-md-3 col-sm-4" ng-repeat="item in eventList">
              <div class="card share share-other">
                 <div class="card-content">
                     
@@ -57,15 +57,31 @@
                     <h5 class="bold m-b-10 long-Text">{{item.title}}</h5>
                 </div>
                 <div class="card-footer clearfix" style="cursor: default;">
-                    <p>
-                        <i class="pg-clock m-r-10"></i> <span><date-sorter start="{{item.start_time}}" end="{{item.end_time}}"></date-sorter></span>
-                    </p>
-                    <p class="long-Text">
-                        <i class="pg-map m-r-10"></i> <span>{{item.address}}</span>
-                    </p>
-                    <p>
-                        <i class="pg-credit_card m-r-10"></i> <span>{{item.cost}}/person</span>
-                    </p>
+                    <div class="row">
+                      <div class="col-xs-1 no-padding p-t-5 p-l-20"><i class="pg-clock"></i></div>
+                      <div class="col-xs-11">
+                        <p class="long-Text">
+                         {{item.display_time}}
+                        </p>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-xs-1 no-padding p-t-5 p-l-20"><i class="pg-map"></i></div>
+                      <div class="col-xs-11">
+                        <p class="long-Text">
+                         {{item.address}}
+                        </p>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-xs-1 no-padding p-t-5 p-l-20"><i class="pg-credit_card"></i></div>
+                      <div class="col-xs-11">
+                        <p>
+                         {{item.cost}}/person
+                        </p>
+                      </div>
+                    </div>
+
                 </div>
                 <div class="button-area clearfix">
                     <button class="full-btn btn {{item.avilable_seats == '0' ? 'btn-danger' : 'btn-success'}}" ng-click="openDetails(item.id);">{{item.avilable_seats == '0' ? 'Sold Out' : 'View Details'}}</button>

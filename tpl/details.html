@@ -12,18 +12,39 @@
                         <h4 class="semi-bold m-b-10">{{event.title}}</h4>
                     </div>
                     <div class="card-footer clearfix" style="cursor: default;">
-                        <p>
-                            <i class="pg-clock m-r-10"></i> <span>{{event.time}}</span>
-                        </p>
-                        <p>
-                            <i class="pg-map m-r-10"></i> <span>{{event.address}}</span>
-                        </p>
-                        <p>
-                            <i class="pg-credit_card m-r-10"></i> <span>{{event.cost}}/person</span>
-                        </p>
-                        <p>
-                            <i class="fa fa-users m-r-10"></i> <span>{{event.avilable_seats}} Seats left</span>
-                        </p>
+                        <div class="row">
+                          <div class="col-xs-1 no-padding p-t-5 p-l-20"><i class="pg-clock"></i></div>
+                          <div class="col-xs-11">
+                            <p>
+                                <span class="block">{{event.display_time[0]}}</span>
+                                <span class="block fs-13 hint-text">{{event.display_time[1]}}</span>
+                            </p>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-xs-1 no-padding p-t-5 p-l-20"><i class="pg-map"></i></div>
+                          <div class="col-xs-11">
+                            <p>
+                             {{event.address}}
+                            </p>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-xs-1 no-padding p-t-5 p-l-20"><i class="pg-credit_card"></i></div>
+                          <div class="col-xs-11">
+                            <p>
+                             {{event.cost}}/person
+                            </p>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-xs-1 no-padding p-t-5 p-l-20"><i class="fa fa-users"></i></div>
+                          <div class="col-xs-11">
+                            <p>
+                             {{event.avilable_seats}} Seats left
+                            </p>
+                          </div>
+                        </div>
                     </div>
                     <div class="button-area clearfix">
                         <button class="full-btn btn {{event.is_disabled == '1' ? 'btn-danger' : (event.is_active == '0' ? 'btn-danger' : (event.avilable_seats == '0' ? 'btn-danger' : 'btn-success'))}}" data-target="#modalSlideLeft2" data-toggle="modal" ng-click="modalSlideLeft" ng-disabled="soldout">{{event.is_disabled == '1' ? 'Closed' : (event.is_active == '0' ? 'Closed' : (event.avilable_seats == '0' ? 'Sold Out' : event.action_text))}}</button>

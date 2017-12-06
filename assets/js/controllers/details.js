@@ -11,9 +11,11 @@ angular.module('app')
     		// console.log($scope.event);
 
                     // change date formate start
-    				changeDateFormate();
+    				// changeDateFormate();
                     // end
-
+                $scope.event.display_time = $scope.event.display_time.split(/\n/g);
+                console.log($scope.event.display_time)
+                //$scope.event.display_time = $sce.trustAsHtml($scope.event.display_time.replace(/\n/g, '<br/>'));
                 $scope.available_s = [];
                 if(parseInt($scope.event.avilable_seats) < 10){
                     for (var i=1; i<= parseInt($scope.event.avilable_seats); i++) {
@@ -66,83 +68,83 @@ angular.module('app')
     	});
 
         
-        function changeDateFormate(){
-            var start = $scope.event.start_time.split(" ");
+        // function changeDateFormate(){
+        //     var start = $scope.event.start_time.split(" ");
                     
-                    var H = +start[1].substr(0, 2);
-                    var h = H % 12 || 12;
-                    var ampm = (H < 12 || H === 24) ? "AM" : "PM";
-                    start[1] = h + start[1].substr(2, 3) + ampm;
+        //             var H = +start[1].substr(0, 2);
+        //             var h = H % 12 || 12;
+        //             var ampm = (H < 12 || H === 24) ? "AM" : "PM";
+        //             start[1] = h + start[1].substr(2, 3) + ampm;
 
-                    var end = $scope.event.end_time.split(" ");
+        //             var end = $scope.event.end_time.split(" ");
 
-                    var H = +end[1].substr(0, 2);
-                    var h = H % 12 || 12;
-                    var ampm = (H < 12 || H === 24) ? "AM" : "PM";
-                    end[1] = h + end[1].substr(2, 3) + ampm;
+        //             var H = +end[1].substr(0, 2);
+        //             var h = H % 12 || 12;
+        //             var ampm = (H < 12 || H === 24) ? "AM" : "PM";
+        //             end[1] = h + end[1].substr(2, 3) + ampm;
 
 
-                    var months = [{
-                        id: '1',
-                        name: 'Jan'
-                    },
-                    {
-                        id: '2',
-                        name: 'Feb'
-                    },
-                    {
-                        id: '3',
-                        name: 'Mar'
-                    },
-                    {
-                        id: '4',
-                        name: 'Apr'
-                    },
-                    {
-                        id: '5',
-                        name: 'May'
-                    },
-                    {
-                        id: '6',
-                        name: 'June'
-                    },
-                    {
-                        id: '7',
-                        name: 'July'
-                    },
-                    {
-                        id: '8',
-                        name: 'Aug'
-                    },
-                    {
-                        id: '9',
-                        name: 'Sept'
-                    },
-                    {
-                        id: '10',
-                        name: 'Oct'
-                    },
-                    {
-                        id: '11',
-                        name: 'Nov'
-                    },
-                    {
-                        id: '12',
-                        name: 'Dec'
-                    }];
-                    if(start[0] == end[0]){
-                        var date = start[0].split("-");
-                        angular.forEach(months, function(value, key){
-                            if(value.id == date[1]){
-                                date[1] = value.name;
-                            }
-                        })
-                        $scope.event.time = date[2] + " " +date[1]+", "+date[0] +" at "+ start[1] +" - "+end[1];
-                    }else{
+        //             var months = [{
+        //                 id: '1',
+        //                 name: 'Jan'
+        //             },
+        //             {
+        //                 id: '2',
+        //                 name: 'Feb'
+        //             },
+        //             {
+        //                 id: '3',
+        //                 name: 'Mar'
+        //             },
+        //             {
+        //                 id: '4',
+        //                 name: 'Apr'
+        //             },
+        //             {
+        //                 id: '5',
+        //                 name: 'May'
+        //             },
+        //             {
+        //                 id: '6',
+        //                 name: 'June'
+        //             },
+        //             {
+        //                 id: '7',
+        //                 name: 'July'
+        //             },
+        //             {
+        //                 id: '8',
+        //                 name: 'Aug'
+        //             },
+        //             {
+        //                 id: '9',
+        //                 name: 'Sept'
+        //             },
+        //             {
+        //                 id: '10',
+        //                 name: 'Oct'
+        //             },
+        //             {
+        //                 id: '11',
+        //                 name: 'Nov'
+        //             },
+        //             {
+        //                 id: '12',
+        //                 name: 'Dec'
+        //             }];
+        //             if(start[0] == end[0]){
+        //                 var date = start[0].split("-");
+        //                 angular.forEach(months, function(value, key){
+        //                     if(value.id == date[1]){
+        //                         date[1] = value.name;
+        //                     }
+        //                 })
+        //                 $scope.event.time = date[2] + " " +date[1]+", "+date[0] +" at "+ start[1] +" - "+end[1];
+        //             }else{
 
-                    }
+        //             }
 
-        }
+        // }
         $scope.changeCount = function(){
             $scope.seatcount = [];
             for (var i=0; i<= parseInt($scope.user.seats); i++) {

@@ -252,3 +252,4 @@ angular.module('app').config(function($pixelProvider) {
 angular.module('app').run(function($pixel) {
   $pixel.pageView();
 })
+
